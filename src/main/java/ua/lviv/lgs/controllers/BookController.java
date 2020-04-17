@@ -1,4 +1,4 @@
-package ua.lviv.lgs;
+package ua.lviv.lgs.controllers;
 
 import java.util.Optional;
 
@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import ua.lviv.lgs.dtos.BookRequest;
+import ua.lviv.lgs.entities.Book;
+import ua.lviv.lgs.services.BookService;
 
 @Controller
 @RequestMapping("/books")
@@ -32,7 +36,7 @@ public class BookController {
     return "book";
   }
 
-  @PostMapping("/save")
+  @PostMapping("/edit")
   public String save(@ModelAttribute Book book, HttpServletRequest req) {
     bookService.save(book);
     req.setAttribute("books", bookService.findAllBooks());
@@ -65,7 +69,6 @@ public class BookController {
     bookService.delete(bookId);
     req.setAttribute("books", bookService.findAllBooks());
     req.setAttribute("mode", "BOOK_VIEW");
-    // Todo Fix
-    return "/books/";
+    return "redirect:/books/";
   }
 }

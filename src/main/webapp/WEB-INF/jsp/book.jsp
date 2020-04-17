@@ -33,6 +33,7 @@
                     <th>Id</th>
                     <th>Book Name</th>
                     <th>Author</th>
+                    <th>Cover</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -43,6 +44,9 @@
                         <td>${book.id}</td>
                         <td>${book.name}</td>
                         <td>${book.author}</td>
+                        <td>
+                            <img src="/ILibrary/book-cover-files/download/${book.coverId}" width="50px">
+                        </td>
                         <td><a href="/ILibrary/books/update?id=${book.id}">edit</a></td>
                         <td><a href="/ILibrary/books/delete?id=${book.id}">delete</a></td>
                     </tr>
@@ -52,19 +56,30 @@
         </c:when>
 
         <c:when test="${mode == 'BOOK_EDIT' || mode == 'BOOK_CREATE'}">
-            <form action="${mode == 'BOOK_EDIT' ? "/ILibrary/books/save": "/ILibrary/books/create"}" method="POST">
+            <form action="${mode == 'BOOK_EDIT' ? "/ILibrary/books/edit": "/ILibrary/books/create"}" method="POST">
                 <c:choose>
                     <c:when test="${mode == 'BOOK_EDIT'}">
+                        <img src="/ILibrary/book-cover-files/download/${book.coverId}" width="200px" id="book-cover">
                         <input type="hidden" value="${book.id}" class="form-control" id="id" name="id">
+                    </c:when>
+
+                    <c:when test="${mode == 'BOOK_CREATE'}">
+                        <img src="https://omegamma.com.au/wp-content/uploads/2017/04/default-image.jpg" id="book-cover"
+                             width="200px">
                     </c:when>
                 </c:choose>
 
                 <div class="form-group">
-                    <label for="bookName">Book Name:</label> <input type="text"
-                                                                    class="form-control" id="name" name="name"
-                                                                    value="${book.name}">
+                    <label for="cover-file">Book cover</label>
+                    <input id="cover-file" type="file" />
                 </div>
 
+                <input type="hidden" value=""
+                       class="form-control"
+                       id="cover-id" name="coverId">
+
+                <label for="bookName">Book Name:</label> <input type="text" class="form-control" id="name" name="name"
+                                                                value="${book.name}">
 
                 <div class="form-group">
                     <label for="author">Author:</label> <input type="text"
@@ -76,6 +91,7 @@
         </c:when>
 
     </c:choose>
+    <script src="${pageContext.request.contextPath}/js/book.js"></script>
 </div>
 </body>
 </html>

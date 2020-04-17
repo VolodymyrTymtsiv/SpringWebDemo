@@ -1,4 +1,4 @@
-package ua.lviv.lgs;
+package ua.lviv.lgs.entities;
 
 import java.util.Date;
 
@@ -19,6 +19,8 @@ public class Book {
   private String author;
   @Column(name = "created_at")
   private Date createdAt;
+  @Column(name = "cover_id")
+  private String coverId;
 
   public Book(String name, String author, Date createdAt) {
     this.name = name;
@@ -51,5 +53,21 @@ public class Book {
 
   public void setAuthor(String author) {
     this.author = author;
+  }
+
+  public Date getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(Date createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public String getCoverId() {
+    return coverId;
+  }
+
+  public void setCoverId(String coverId) {
+    this.coverId = coverId;
   }
 }
